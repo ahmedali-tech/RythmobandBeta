@@ -27,11 +27,13 @@ export default function Rythmoband(props) {
 
   const textMover = () => {
     let x = parseFloat(initialPosition.current);
-    let start = getSub_Millis(props.time[number][0]);
-    let end = getSub_Millis(props.time[number][1]);
+    if (props.time[number]) {
+      let start = getSub_Millis(props.time[number][0]);
+      let end = getSub_Millis(props.time[number][1]);
+      let timeToMove = start - end;
+      setMoverNumber((timeToMove / 5000) * props.player.playbackRate);
+    }
 
-    let timeToMove = start - end;
-    setMoverNumber((timeToMove / 5000) * props.player.playbackRate);
   };
   requestAnimationFrame(() => {
     textMover();
@@ -39,12 +41,14 @@ export default function Rythmoband(props) {
     backChecker();
   });
   const timercheck = () => {
-    if (
-      getSub_Millis(props.time[number][1]) - props.player.currentTime * 1000 <
-      1750
-    ) {
-      initialPosition.current = "90%";
-      setnumber(number + 1);
+    if (props.time[number]) {
+      if (
+        getSub_Millis(props.time[number][1]) - props.player.currentTime * 1000 <
+        1750
+      ) {
+        initialPosition.current = "90%";
+        setnumber(number + 1);
+      }
     }
   };
   const backChecker = () => {
