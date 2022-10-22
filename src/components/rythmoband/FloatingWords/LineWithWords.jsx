@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./LineWithWords.module.css";
 
 const DELAY = -0.4; // Delay of subtitles
-const PIXELS_WIDTH = 200; // Width multiplier
+const PIXELS_WIDTH = 180; // Width multiplier
 const FONT_SIZE = 19
 
 export default function LineWithWords({
@@ -48,15 +48,13 @@ export default function LineWithWords({
       {dialogue.map((el, idx) => {
         let margin = idx % 2 === 0;
         const elContainerWidth = (time[idx][1] - time[idx][0]) * PIXELS_WIDTH
-        const elTextWidth = el.length * 9.5 // 11.5 is average width of letter of font-size 19
+        const elTextWidth = el.length * 10 // 11.5 is average width of letter of font-size 19
 
         let fontSize = FONT_SIZE
-        let letterSpacing = 'inherit'
         if (elContainerWidth < elTextWidth) {
             let diff = elTextWidth - elContainerWidth
             diff = diff > 120 ? 120 : diff;
             fontSize = FONT_SIZE - Math.round(diff / 20)
-            letterSpacing = '-1px'
         }
         return (
           <div
@@ -65,12 +63,15 @@ export default function LineWithWords({
               width: ( (time[idx][1] - time[idx][0]) / ((duration - DELAY) / 100)) + '%',
               marginTop: margin && "1em",
               fontSize: fontSize + 'px',
-              letterSpacing: letterSpacing
             }}
             className={styles.dialogue}
             key={time[idx]}
           >
-            {el}
+            {el.split('').map(letter =>
+              <div className={styles.letterContainer}>
+                {letter}
+              </div>
+            )}
           </div>
         );
       })}

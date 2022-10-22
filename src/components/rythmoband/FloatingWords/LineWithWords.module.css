@@ -17,4 +17,11 @@
     font-weight: 600;
     position: absolute;
     text-align: left;
+    font-size: 19px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.letterContainer {
+
 }
