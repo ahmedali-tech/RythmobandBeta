@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./LineWithWords.module.css";
-
-const DELAY = -0.4; // Delay of subtitles
 const PIXELS_WIDTH = 200; // Width multiplier
 const FONT_SIZE = 19
 
@@ -25,7 +23,7 @@ export default function LineWithWords({
       setTimeout(function () {
         el.classList.add(styles.container);
       }, 1);
-      setDelay(-1 * position + DELAY);
+      setDelay(-1 * position);
     }
   };
   useEffect(() => {
@@ -48,8 +46,8 @@ export default function LineWithWords({
       return (
         <div
           style={{
-            left: (time[idx][0] / ( (duration - DELAY) / 100 ) ) + '%',
-            width: ( (time[idx][1] - time[idx][0]) / ((duration - DELAY) / 100)) + '%',
+            left: (time[idx][0] / ( (duration) / 100 ) ) + '%',
+            width: ( (time[idx][1] - time[idx][0]) / ((duration) / 100)) + '%',
             marginTop: margin && "1em",
             fontSize: fontSize + 'px',
           }}
